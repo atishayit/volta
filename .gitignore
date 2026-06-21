@@ -1,0 +1,22 @@
+# Python
+__pycache__/
+*.pyc
+.ipynb_checkpoints/
+.venv/
+venv/
+
+# ML artifacts (regenerable via the pipeline)
+ml/artifacts/*.pt
+ml/artifacts/*.csv
+ml/artifacts/eval_*.json
+
+# Node / Next
+web/node_modules/
+web/.next/
+web/out/
+web/next-env.d.ts
+
+# OS / editor
+.DS_Store
+*.log
+.vercel

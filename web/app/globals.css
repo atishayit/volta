@@ -1,0 +1,85 @@
+@tailwind base;
+@tailwind components;
+@tailwind utilities;
+
+:root {
+  --font-sans: "Inter", system-ui, sans-serif;
+  --font-mono: "JetBrains Mono", ui-monospace, monospace;
+}
+
+html {
+  color-scheme: dark;
+}
+
+body {
+  @apply bg-base-900 text-ink antialiased;
+  background-image:
+    radial-gradient(circle at 50% -10%, rgba(45, 212, 255, 0.07), transparent 55%),
+    radial-gradient(circle at 85% 10%, rgba(255, 176, 32, 0.06), transparent 45%);
+  background-attachment: fixed;
+}
+
+/* Faint instrument-panel grid, contained to panels via .panel-grid */
+.panel-grid {
+  background-image:
+    linear-gradient(rgba(255, 255, 255, 0.025) 1px, transparent 1px),
+    linear-gradient(90deg, rgba(255, 255, 255, 0.025) 1px, transparent 1px);
+  background-size: 28px 28px;
+}
+
+@layer components {
+  .panel {
+    @apply rounded-xl border border-white/5 bg-base-800/70 shadow-panel backdrop-blur-sm;
+  }
+  .chip {
+    @apply inline-flex items-center gap-1.5 rounded-full border border-white/10
+           bg-base-700/60 px-2.5 py-1 text-xs font-medium text-ink-dim;
+  }
+  .stat-label {
+    @apply font-mono text-[11px] uppercase tracking-[0.18em] text-ink-faint;
+  }
+}
+
+/* Recharts tooltip + axis polish */
+.recharts-cartesian-axis-tick text {
+  fill: #5b6675;
+  font-size: 11px;
+}
+.recharts-default-tooltip {
+  background: rgba(11, 15, 22, 0.95) !important;
+  border: 1px solid rgba(255, 255, 255, 0.08) !important;
+  border-radius: 8px !important;
+}
+
+/* What-if range sliders */
+.volta-range {
+  -webkit-appearance: none;
+  appearance: none;
+  height: 4px;
+  border-radius: 999px;
+  background: linear-gradient(90deg, #e08a00, #ffc24d);
+  outline: none;
+}
+.volta-range::-webkit-slider-thumb {
+  -webkit-appearance: none;
+  appearance: none;
+  width: 18px;
+  height: 18px;
+  border-radius: 50%;
+  background: #ffb020;
+  border: 3px solid #0b0f16;
+  box-shadow: 0 0 0 1px rgba(255, 176, 32, 0.4), 0 0 12px rgba(255, 176, 32, 0.5);
+  cursor: pointer;
+}
+.volta-range::-moz-range-thumb {
+  width: 18px;
+  height: 18px;
+  border-radius: 50%;
+  background: #ffb020;
+  border: 3px solid #0b0f16;
+  cursor: pointer;
+}
+
+::-webkit-scrollbar { width: 10px; height: 10px; }
+::-webkit-scrollbar-thumb { background: #28313f; border-radius: 8px; }
+::-webkit-scrollbar-track { background: transparent; }
