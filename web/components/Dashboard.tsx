@@ -43,18 +43,15 @@ export function Dashboard() {
     const cnn = score.models["CNN-BiLSTM"];
     const xgb = score.models["XGBoost"];
     const ph = score.per_horizon_mae;
-    const mean = (a: number[]) => a.reduce((s, v) => s + v, 0) / a.length;
-    // Short-horizon (1-6h) edge — where the CNN-BiLSTM beats joint XGBoost.
-    const hShort = mean(ph["CNN-BiLSTM"].slice(0, 6));
-    const xShort = mean(ph["XGBoost"].slice(0, 6));
-    const shortEdge = ((xShort - hShort) / xShort) * 100;
-    // Horizon up to which the CNN-BiLSTM leads.
+    // h+1 (1-hour-ahead) edge — the dispatch-critical horizon the CNN-BiLSTM wins.
+    const h1Edge = ((ph["XGBoost"][0] - ph["CNN-BiLSTM"][0]) / ph["XGBoost"][0]) * 100;
+    // Horizon up to which the CNN-BiLSTM leads before XGBoost overtakes.
     let leadsThrough = 0;
     for (let i = 0; i < ph["CNN-BiLSTM"].length; i++) {
       if (ph["CNN-BiLSTM"][i] <= ph["XGBoost"][i]) leadsThrough = i + 1;
       else break;
     }
-    return { score, cnn, xgb, shortEdge, leadsThrough };
+    return { score, cnn, xgb, h1Edge, leadsThrough };
   }, [data, region]);
 
   if (error)
@@ -84,15 +81,15 @@ export function Dashboard() {
         {/* Headline ribbon */}
         <div className="grid gap-4 sm:grid-cols-2 lg:grid-cols-4">
           <Stat
-            label="1–6h MAE vs XGBoost"
-            value={`−${hero.shortEdge.toFixed(0)}%`}
-            sub={`CNN-BiLSTM short-horizon edge · ${data.meta.regions[region]}`}
+            label="1h-ahead MAE vs XGBoost"
+            value={`−${hero.h1Edge.toFixed(0)}%`}
+            sub={`CNN-BiLSTM dispatch-horizon edge · ${data.meta.regions[region]}`}
             accent
           />
           <Stat
             label="CNN-BiLSTM leads"
             value={`through h+${hero.leadsThrough}`}
-            sub="before XGBoost overtakes long-horizon"
+            sub="before XGBoost overtakes longer horizons"
           />
           <Stat
             label="24h MAPE"

@@ -10,7 +10,8 @@ import type {
 const base = process.env.NEXT_PUBLIC_BASE_PATH ?? "";
 
 async function getJSON<T>(name: string): Promise<T> {
-  const res = await fetch(`${base}/data/${name}`, { cache: "force-cache" });
+  // no-cache => always revalidate, so a redeploy's fresh JSON is never served stale.
+  const res = await fetch(`${base}/data/${name}`, { cache: "no-cache" });
   if (!res.ok) throw new Error(`Failed to load ${name}: ${res.status}`);
   return res.json() as Promise<T>;
 }

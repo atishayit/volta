@@ -78,7 +78,7 @@ export function Scorecard({ score }: { score: RegionScore }) {
         </table>
         <p className="mt-3 text-xs text-ink-faint">
           Held-out test · 24h-averaged. XGBoost (joint multi-output) edges the
-          full-horizon average; the CNN-BiLSTM wins the short-horizon regime →
+          full-horizon average; the CNN-BiLSTM wins the near-term (1h-ahead) regime →
         </p>
       </div>
 
