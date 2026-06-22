@@ -5,10 +5,8 @@ __pycache__/
 .venv/
 venv/
 
-# ML artifacts (regenerable via the pipeline)
-ml/artifacts/*.pt
-ml/artifacts/*.csv
-ml/artifacts/eval_*.json
+# ML artifacts (all regenerable via the pipeline: fetch_real_data → train → export)
+ml/artifacts/
 
 # Node / Next
 web/node_modules/
