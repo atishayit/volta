@@ -6,7 +6,7 @@ and presents it all in a cinematic, interactive "control-room" dashboard — inc
 a **what-if simulator that re-forecasts live in your browser** (via `onnxruntime-web`)
 as you change temperature, day-type, and hour. No inference server. $0 hosting.
 
-> **Live demo:** _add Vercel URL_ · **Repo:** https://github.com/atishayit/volta
+> **Live demo:** https://volta-virid.vercel.app · **Repo:** https://github.com/atishayit/volta
 
 ![VOLTA dashboard — forecast + live what-if simulator](docs/hero.png)
 
